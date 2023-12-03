@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:15-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=rust
+      - POSTGRES_PASSWORD=rust
+      - POSTGRES_DB=rust
+
+
+volumes:
+  db:
+    driver: local
