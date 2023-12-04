@@ -13,7 +13,7 @@
   {% for blog in all_blogs %}
   <p>{{blog.title}}</p>
   <p>{{blog.email}}</p>
-  <p>{{blog.content}}</p>
+  {{blog.content | safe}}
 
   {% endfor %}
 </body>

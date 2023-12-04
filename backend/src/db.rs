@@ -124,10 +124,75 @@ impl Store {
 
     let mut res = Vec::new();
     for blog in blog_pages {
+        let mut incoming_content: String = blog.get("content");
+        let mut parsed_content = Vec::new();
+
+        for line in incoming_content.split("\r\n") {
+            println!("{}", line);
+            // check for ###
+            if line.starts_with("###") {
+                let new_string = line.replace("###", "<h3>") + "</h3>";
+                parsed_content.push(new_string);
+            }
+
+            //check for ##
+            else if line.starts_with("##") {
+                let new_string = line.replace("##", "<h2>") + "</h2>";
+                parsed_content.push(new_string);
+            }
+
+            //check for #
+            else if line.starts_with("#") {
+                let new_string = line.replace("#", "<h1>") + "</h1>";
+                parsed_content.push(new_string);
+            }
+
+            //check for ** **
+            else if line.starts_with("**") && line.ends_with("**") {
+                let start_tag = "<strong>";
+                let end_tag = "</strong>";
+
+                let new_string = start_tag.to_string() + &line[2..line.len() - 2] + end_tag;
+                parsed_content.push(new_string);
+            }
+
+            //check for * *
+            else if line.starts_with("*") && line.ends_with("*") {
+                let start_tag = "<i>";
+                let end_tag = "</i>";
+
+                let new_string = start_tag.to_string() + &line[1..line.len() - 1] + end_tag;
+                parsed_content.push(new_string);
+            }
+
+            //check for ~~ ~~
+            else if line.starts_with("~~") && line.ends_with("~~") {
+                let start_tag = "<s>";
+                let end_tag = "</s>";
+
+                let new_string = start_tag.to_string() + &line[2..line.len() - 2] + end_tag;
+                parsed_content.push(new_string);
+            }
+
+            //check for ---
+            else if line.starts_with("---") {
+                parsed_content.push(line.replace("---", "<hr>"));
+            }
+
+            else {
+                parsed_content.push(line.to_string());
+            }
+        }
+
+        for line in &parsed_content {
+            println!("{}", line);
+        }
+
+
         let new_blog = Blog {
             title: blog.get("title"),
             email: blog.get("email"),
-            content: blog.get("content"),
+            content: parsed_content.join("<br>"),
             publish_date: blog.get("publish_date"),
         };
         res.push(new_blog);
