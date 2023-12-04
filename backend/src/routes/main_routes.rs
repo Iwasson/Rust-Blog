@@ -23,6 +23,7 @@ pub async fn app(pool: PgPool) -> Router {
         .route("/", get(root))
         .route("/make_blog", get(handlers::make_blog))
         .route("/post_blog", post(handlers::post_blog))
+        .route("/all_blogs", get(handlers::all_blogs))
         .route("/users", post(handlers::register))
         .route("/login", post(handlers::login))
         .route("/protected", get(handlers::protected))

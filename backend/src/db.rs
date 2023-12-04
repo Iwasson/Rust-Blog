@@ -117,11 +117,22 @@ impl Store {
     Ok(blog)
   }
 
-//   pub async fn get_all_blogs(&self) -> Result<Vec<PagePackage>, AppError> {
-//     let blog_pages = sqlx::query("SELECT * FROM blog")
-//         .fetch_all(&self.conn_pool)
-//         .await?;
+  pub async fn get_all_blogs(&self) -> Result<Vec<Blog>, AppError> {
+    let blog_pages = sqlx::query("SELECT * FROM blog")
+        .fetch_all(&self.conn_pool)
+        .await?;
 
-//     let mut res = Vec::new();
-//   }
+    let mut res = Vec::new();
+    for blog in blog_pages {
+        let new_blog = Blog {
+            title: blog.get("title"),
+            email: blog.get("email"),
+            content: blog.get("content"),
+            publish_date: blog.get("publish_date"),
+        };
+        res.push(new_blog);
+    }
+
+    Ok(res)
+  }
 }

@@ -169,35 +169,35 @@ pub async fn make_blog (
     Ok(Html(rendered))
 }
 
-// pub async fn all_blogs(
-//     State(am_database): State<Store>,
-//     OptionalClaims(claims): OptionalClaims,
-// ) -> Result<Html<String>, AppError> {
-//     let mut context = Context::new();
-//     context.insert("name", "Ian");
+pub async fn all_blogs(
+    State(am_database): State<Store>,
+    OptionalClaims(claims): OptionalClaims,
+) -> Result<Html<String>, AppError> {
+    let mut context = Context::new();
+    context.insert("name", "Ian");
 
-//     let template_name = if let Some(claims_data) = claims {
-//         error!("Setting claims and is_logged_in is TRUE now");
-//         context.insert("claims", &claims_data);
-//         context.insert("is_logged_in", &true);
-//         let all_blogs = am_database.get_all_blogs(claims_data.email).await?;
-//         context.insert("all_blogs", &all_blogs);
-//         "all_blogs.html"
-//     } else {
-//         error!("is_logged_in is FALSE now");
-//         context.insert("is_logged_in", &false);
-//         "index.html"
-//     };
+    let template_name = if let Some(claims_data) = claims {
+        error!("Setting claims and is_logged_in is TRUE now");
+        context.insert("claims", &claims_data);
+        context.insert("is_logged_in", &true);
+        let all_blogs = am_database.get_all_blogs().await?;
+        context.insert("all_blogs", &all_blogs);
+        "all_blogs.html"
+    } else {
+        error!("is_logged_in is FALSE now");
+        context.insert("is_logged_in", &false);
+        "index.html"
+    };
 
-//     let rendered = TEMPLATES
-//     .render(template_name, &context)
-//     .unwrap_or_else(|err| {
-//         error!("Template rendering error: {}", err);
-//         panic!()
-//     });
+    let rendered = TEMPLATES
+    .render(template_name, &context)
+    .unwrap_or_else(|err| {
+        error!("Template rendering error: {}", err);
+        panic!()
+    });
 
-//     Ok(Html(rendered))
-// }
+    Ok(Html(rendered))
+}
 
 pub async fn protected(claims: Claims) -> Result<String, AppError> {
   Ok(format!(
