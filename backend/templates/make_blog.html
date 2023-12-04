@@ -9,4 +9,29 @@
 </head>
 <body>
   <h1>Welcome to the blog creator!</h1>
+  <p>Please fill out the following forms to construct your very own blog post!</p>
+  <p>
+    This website allows you to use markdown to format your blog text.
+    Supported markdown features:
+    <ul>
+      <li>#&lt;text&gt; == header 1</li>
+      <li>##&lt;text&gt; == header 2</li>
+      <li>###&lt;text&gt; == header 3</li>
+      <li>*&lt;text&gt;* == italicized</li>
+      <li>**&lt;text&gt;** == bold</li>
+      <li>~~&lt;text&gt;~~ == strikethrough</li>
+      <li>--- == horizontal rule</li>
+    </ul>
+  </p>
+
+  <form action="/post_blog" method="post">
+    <label for="title">Title of Blog:</label>
+    <input type="text" id="title" name="title">
+    <label for="content">Contents:</label>
+    <textarea id="content" name="content"></textarea>
+    <input type="hidden" id="email" name="email" value="{{claims.email}}">
+    <input type="hidden" id="publish_date" name="publish_date" value="TEMP_DATE">
+    <input type="submit" value="POST!">
+  </form>
+
 </body>
