@@ -15,7 +15,6 @@ pub struct User {
     pub email: String,
     pub password: String,
     pub is_admin: bool,
-    pub is_banned: bool,
 }
 
 #[derive(Serialize, Deserialize, sqlx::FromRow)]

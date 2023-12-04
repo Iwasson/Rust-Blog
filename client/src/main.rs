@@ -20,5 +20,22 @@ async fn main() -> anyhow::Result<()> {
     let body = response.text().await?;
     println!("{}", body);
 
+    // let response = client.post("http://localhost:3000/post_blog")
+    // .header("Content-Type", "application/x-www-form-urlencoded")
+    //     .body(
+    //         "{
+    //             \"title\": \"Test Blog\",
+    //             \"email\": \"test@test.com\",
+    //             \"content\": \"#Test h1 \\ ##Test h2\",
+    //             \"publish_date\": \"12/3/23\"
+    //         }",
+    //     )
+    //     .send()
+    //     .await?;
+
+
+    // let body = response.text().await?;
+    // println!("{}", body);
+
     Ok(())
 }

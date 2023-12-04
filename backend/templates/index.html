@@ -9,5 +9,16 @@
 </head>
 <body>
 
-<h1>HELLO</h1>
+<h1>Welcome to the Rusty Blog</h1>
+<p>Please sign in or sign up before viewing all of the blog posts!</p>
+
+<form action="/login" method="post">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <input type="hidden" id="is_admin" name="is_admin" value="false">
+    <input type="submit" value="Login">
+</form>
+
 </body>

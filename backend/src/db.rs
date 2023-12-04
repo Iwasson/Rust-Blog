@@ -1,5 +1,4 @@
 use axum::Json;
-use reqwest::Client;
 use serde_json::Value;
 use std::sync::{Arc, Mutex};
 
@@ -10,10 +9,12 @@ use tracing::info;
 use crate::error::AppError;
 use crate::models::page::{PagePackage};
 use crate::models::users::{User, UserSignup};
+use crate::models::blog::{Blog};
 
 #[derive(Clone)]
 pub struct Store {
     pub conn_pool: PgPool,
+    pub blogs: Arc<Mutex<Vec<Blog>>>,
 }
 
 pub async fn new_pool() -> PgPool {
@@ -38,6 +39,7 @@ impl Store {
   pub fn with_pool(pool: PgPool) -> Self {
       Self {
           conn_pool: pool,
+          blogs: Default::default(),
       }
   }
 
@@ -67,7 +69,6 @@ impl Store {
   }
 
   pub async fn create_user(&self, user: UserSignup) -> Result<Json<Value>, AppError> {
-    // TODO: Encrypt/bcrypt user passwords
     let result = sqlx::query("INSERT INTO users(email, password, is_admin) values ($1, $2, $3)")
         .bind(&user.email)
         .bind(&user.password)
@@ -84,13 +85,43 @@ impl Store {
         ))
     }
   }
-}
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
+  pub async fn post_blog(
+    &mut self,
+    title: String,
+    email: String,
+    content: String,
+    publish_date: String,
+  ) -> Result<Blog, AppError> {
+    let res = sqlx::query!(
+        r#"
+            INSERT INTO blog (title, email, content, publish_date)
+            VALUES ($1, $2, $3, $4)
+            RETURNING *
+        "#,
+        title,
+        email,
+        content,
+        publish_date,
+    )
+    .fetch_one(&self.conn_pool)
+    .await?;
+
+    let blog = Blog {
+        title,
+        email,
+        content,
+        publish_date,
+    };
+
+    Ok(blog)
+  }
+
+//   pub async fn get_all_blogs(&self) -> Result<Vec<PagePackage>, AppError> {
+//     let blog_pages = sqlx::query("SELECT * FROM blog")
+//         .fetch_all(&self.conn_pool)
+//         .await?;
+
+//     let mut res = Vec::new();
+//   }
 }
