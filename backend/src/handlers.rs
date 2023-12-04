@@ -30,7 +30,7 @@ pub async fn root(
         error!("Setting claims and is_logged_in is TRUE now");
         context.insert("claims", &claims_data);
         context.insert("is_logged_in", &true);
-        "all_blogs.html"
+        "landing_page.html"
     } else {
         error!("is_logged_in is FALSE now");
         context.insert("is_logged_in", &false);
@@ -140,6 +140,33 @@ pub async fn post_blog(
     .await?;
 
     Ok(Json(blog))
+}
+
+pub async fn make_blog (
+    State(am_database): State<Store>,
+    OptionalClaims(claims): OptionalClaims,
+) -> Result<Html<String>, AppError> {
+    let mut context = Context::new();
+    context.insert("name", "Ian");
+
+    let template_name = if let Some(claims_data) = claims {
+        error!("Setting claims and is_logged_in is TRUE now");
+        context.insert("claims", &claims_data);
+        context.insert("is_logged_in", &true);
+        "make_blog.html"
+    } else {
+        error!("is_logged_in is FALSE now");
+        context.insert("is_logged_in", &false);
+        "index.html"
+    };
+
+    let rendered = TEMPLATES
+        .render(template_name, &context)
+        .unwrap_or_else(|err| {
+            error!("Template rendering error: {}", err);
+            panic!()
+        });
+    Ok(Html(rendered))
 }
 
 // pub async fn all_blogs(
