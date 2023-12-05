@@ -8,30 +8,38 @@
 
 </head>
 <body>
-  <h1>Welcome to the blog creator!</h1>
-  <p>Please fill out the following forms to construct your very own blog post!</p>
-  <p>
-    This website allows you to use markdown to format your blog text.
-    Supported markdown features:
-    <ul>
-      <li>#&lt;text&gt; == header 1</li>
-      <li>##&lt;text&gt; == header 2</li>
-      <li>###&lt;text&gt; == header 3</li>
-      <li>*&lt;text&gt;* == italicized</li>
-      <li>**&lt;text&gt;** == bold</li>
-      <li>~~&lt;text&gt;~~ == strikethrough</li>
-      <li>--- == horizontal rule</li>
-    </ul>
-  </p>
+  <div class="content">
+    <div class="navbar">
+      <a href="/">Home</a>
+    </div>
 
-  <form action="/post_blog" method="post">
-    <label for="title">Title of Blog:</label>
-    <input type="text" id="title" name="title">
-    <label for="content">Content:</label>
-    <textarea id="content" name="content"></textarea>
-    <input type="hidden" id="email" name="email" value="{{claims.email}}">
-    <input type="hidden" id="publish_date" name="publish_date" value="TEMP_DATE">
-    <input type="submit" value="POST!">
-  </form>
+    <div class="home-header">
+      <h1>Welcome to the blog creator!</h1>
+      <p>Please fill out the following forms to construct your very own blog post!</p>
+      <pre>
+This website allows you to use markdown to format your blog text.
+Supported markdown features:
+#&lt;text&gt; == header 1
+##&lt;text&gt; == header 2
+###&lt;text&gt; == header 3
+*&lt;text&gt;* == italicized
+**&lt;text&gt;** == bold
+~~&lt;text&gt;~~ == strikethrough
+--- == horizontal rule
+      </pre>
+    </div>
 
+    <div class="blog-form">
+      <form action="/post_blog" method="post" class="blg-form">
+        <label for="title" class="form-label">Title of Blog:</label><br>
+        <input type="text" id="title" name="title" class="form-input"><br>
+        <label for="content" class="form-label">Content:</label><br>
+        <textarea id="content" name="content" rows="50" cols="70"></textarea>
+        <input type="hidden" id="email" name="email" value="{{claims.email}}">
+        <input type="hidden" id="publish_date" name="publish_date" value="TEMP_DATE">
+        <br>
+        <input type="submit" value="POST!" class="btn">
+      </form>
+    </div>
+  </div>
 </body>

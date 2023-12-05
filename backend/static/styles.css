@@ -1,0 +1,154 @@
+body {
+  background-color: #ECC8AF;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70vw;
+  background-color: #E7AD99;
+  padding-bottom: 3em;
+}
+
+.home-header {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar {
+  background-color: #495867;
+  text-decoration: none;
+  margin: 0%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 5em;
+}
+
+.navbar a {
+  font-size: xx-large;
+  text-decoration: none;
+  color: white;
+}
+
+
+.login-form {
+  background-color: #CE796B;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3em;
+  height: 500px;
+  width: 50vw;
+}
+
+.log-form {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+  text-align: center;
+}
+
+.form-label {
+  color: white;
+  font-size: larger;
+}
+
+.form-input {
+  margin-bottom: 3em;
+  border-radius: 24px;
+  border-style: none;
+  height: 25px;
+  width: 200px;
+  padding-left: 2em;
+}
+
+.btn {
+  align-items: center;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: #3c4043;
+  background-color: white;
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  padding: 2px 24px;
+  margin-top: 2em;
+  text-decoration: none;
+}
+
+.btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.landing-options {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  background-color: #CE796B;
+  width: 50vw;
+  text-align: center;
+  color: white;
+  font-size: larger;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-card {
+  background-color: #CE796B;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.blog-header {
+  background-color: #3c4043;
+  color: white;
+  padding-left: 3em;
+  font-size: x-large;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.blog-card hr {
+  height: 3px;
+  background: black;
+  border: none;
+}
+
+.blog-divider {
+  height: 5px;
+  background: black;
+  border: none;
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-top: 2em;
+}
+
+.blog-content {
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-bottom: 5em;
+}
+
+.blog-form {
+  background-color: #CE796B;
+  margin-left: 2em;
+  margin-right: 2em;
+  padding-bottom: 3em;
+  padding-top: 20px;
+}
+
+.blog-form textarea{
+  text-align: start !important ;
+}
+
+.blg-form {
+  width: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+  text-align: center;
+}

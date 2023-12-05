@@ -9,16 +9,25 @@
 </head>
 <body>
 
-<h1>Welcome to the Rusty Blog</h1>
-<p>Please sign in or sign up before viewing all of the blog posts!</p>
+<div class="content">
+    <div class="navbar">
+        <a href="/">Home</a>
+    </div>
+    <div class="home-header">
+        <h1>Welcome to the Rusty Blog</h1>
+        <p>Please sign in or sign up before viewing all of the blog posts!</p>
+    </div>
 
-<form action="/login" method="post">
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-    <input type="hidden" id="is_admin" name="is_admin" value="false">
-    <input type="submit" value="Login">
-</form>
+    <div class="login-form">
+        <form action="/login" method="post" class="log-form">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" id="email" name="email" class="form-input">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" id="password" name="password" class="form-input">
+            <input type="hidden" id="is_admin" name="is_admin" value="false">
+            <input type="submit" value="Login" class="btn">
+        </form>
+    </div>
+</div>
 
 </body>
