@@ -1,5 +1,5 @@
 use argon2::Config;
-use axum::extract::{Path, Query, State};
+use axum::extract::{State};
 use axum::response::{Html, Response};
 use axum::{Form, Json};
 use http::header::{LOCATION, SET_COOKIE};
@@ -20,7 +20,7 @@ use crate::template::TEMPLATES;
 
 #[allow(dead_code)]
 pub async fn root(
-    State(am_database): State<Store>,
+    State(_am_database): State<Store>,
     OptionalClaims(claims): OptionalClaims,
 ) -> Result<Html<String>, AppError> {
     let mut context = Context::new();
@@ -60,7 +60,7 @@ pub async fn register(
 
   let existing_user = database.get_user(&credentials.email).await;
 
-  if let Ok(_) = existing_user {
+  if existing_user.is_ok() {
       return Err(AppError::UserAlreadyExists);
   }
 
@@ -93,7 +93,7 @@ pub async fn login(
 
     let existing_user = database.get_user(&creds.email).await?;
     let is_password_correct =
-        match argon2::verify_encoded(&*existing_user.password, creds.password.as_bytes()) {
+        match argon2::verify_encoded(&existing_user.password, creds.password.as_bytes()) {
             Ok(result) => result,
             Err(_) => {
                 return Err(AppError::InternalServerError);
@@ -143,7 +143,7 @@ pub async fn post_blog(
 }
 
 pub async fn make_blog (
-    State(am_database): State<Store>,
+    State(_am_database): State<Store>,
     OptionalClaims(claims): OptionalClaims,
 ) -> Result<Html<String>, AppError> {
     let mut context = Context::new();

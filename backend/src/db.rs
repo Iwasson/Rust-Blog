@@ -7,7 +7,6 @@ use sqlx::{PgPool, Row};
 use tracing::info;
 
 use crate::error::AppError;
-use crate::models::page::{PagePackage};
 use crate::models::users::{User, UserSignup};
 use crate::models::blog::{Blog};
 
@@ -72,7 +71,7 @@ impl Store {
     let result = sqlx::query("INSERT INTO users(email, password, is_admin) values ($1, $2, $3)")
         .bind(&user.email)
         .bind(&user.password)
-        .bind(&user.is_admin)
+        .bind(user.is_admin)
         .execute(&self.conn_pool)
         .await
         .map_err(|_| AppError::InternalServerError)?;
@@ -93,7 +92,7 @@ impl Store {
     content: String,
     publish_date: String,
   ) -> Result<Blog, AppError> {
-    let res = sqlx::query!(
+    let _res = sqlx::query!(
         r#"
             INSERT INTO blog (title, email, content, publish_date)
             VALUES ($1, $2, $3, $4)
@@ -124,7 +123,7 @@ impl Store {
 
     let mut res = Vec::new();
     for blog in blog_pages {
-        let mut incoming_content: String = blog.get("content");
+        let incoming_content: String = blog.get("content");
         let mut parsed_content = Vec::new();
 
         for line in incoming_content.split("\r\n") {
@@ -142,8 +141,8 @@ impl Store {
             }
 
             //check for #
-            else if line.starts_with("#") {
-                let new_string = line.replace("#", "<h1>") + "</h1>";
+            else if line.starts_with('#') {
+                let new_string = line.replace('#', "<h1>") + "</h1>";
                 parsed_content.push(new_string);
             }
 
@@ -157,7 +156,7 @@ impl Store {
             }
 
             //check for * *
-            else if line.starts_with("*") && line.ends_with("*") {
+            else if line.starts_with('*') && line.ends_with('*') {
                 let start_tag = "<i>";
                 let end_tag = "</i>";
 
